@@ -1,0 +1,18 @@
+'use strict'
+const countries = [ 'BELARUS', 'USA', 'GBR', 'BELARUS', 'UKRAINE', 'BELARUS' ]
+const setOfCountries = new Set(countries)
+console.log( countries )
+console.log( setOfCountries )
+console.log( setOfCountries.size )
+console.log( setOfCountries.entries() )
+console.log( setOfCountries.values() )
+console.log( setOfCountries.has( 'USA' ) )
+console.log( setOfCountries.add( 'AUSTRALIA' ) )
+console.log( setOfCountries.keys() )
+setOfCountries.forEach( ( value, key ) => console.log( `${ key }: ${ value }` ) )
+const arrayOfCountries = Array.from( setOfCountries )
+console.log( arrayOfCountries )
+console.log( `SetOfCountries is Array: ${Array.isArray( setOfCountries )}`, `Typeof: ${typeof setOfCountries}`, setOfCountries )
+setOfCountries.clear()
+console.log( setOfCountries )
+console.log( new Set( 'ABCDEFG' ) )
