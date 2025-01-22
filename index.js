@@ -1,32 +1,17 @@
-'use strict'
-'use strict'
-console.log( "WeakSet" )
-const obA = { a: 100 }
-let obB = { b: 300 }
-const C = {c: 9999}
-const weakSet = new WeakSet( [ obA, obB ] )
-console.log( weakSet )
-weakSet.add( C )
-console.log( weakSet )
-obB = null
-setTimeout(() => console.log( weakSet ), 10_000)
-
-const cache = new WeakSet()
-
-function getCache ( obj )
-{
-    if ( !cache.has( obj ) )
-    {
-        const result = { result: 99_999_000 } //! Here is a difficult calculating
-        cache.add( result )
-    }
-    return cache
+function from1To20(from, to) {
+    return Math.floor( Math.random() * to + Number( from ) )
 }
 
-const result = getCache( obA )
-console.log( result, 'RESULT' )
-// console.log( Array.isArray( result ) )
-// const countries = [ 'BELARUS', 'USA', 'GBR', 'BELARUS', 'UKRAINE', 'BELARUS' ]
-// const setOfCountries = new Set(countries)
-// console.log( setOfCountries )
-// console.log( Array.isArray( setOfCountries ) )
+// console.log( from1To20( 1, 20 ) )
+// console.log( Number.MAX_SAFE_INTEGER )
+// console.log( Number.MIN_SAFE_INTEGER )
+// console.log( Number.MAX_VALUE )
+
+const bigNumber = BigInt( 7118037103868371788939097945 ) //! not correct: 7118037103868372207144009728n
+console.log( bigNumber ) //! not correct: 7118037103868372207144009728n
+const biIntFromString = BigInt('7118037103868371788939097945') //* 7118037103868371788939097945n
+console.log( biIntFromString ) //* 7118037103868371788939097945n
+
+console.log( 10n / 3n ) //! return 3n because bigInt works only with integers
+
+console.log(typeof biIntFromString )
