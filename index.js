@@ -1,90 +1,42 @@
 'use strict'
-
-console.log( new Date( '03-21-2025' ) )
-console.log( new Date( '03/21/2025' ) )
-console.log( new Date( '2025-03-21' ) ) //! Browsers don't recognize this format, with it works JS so like a result we have next string in the console: Fri Mar 21 2025 03:00:00 GMT+0300 (Москва, стандартное время). JS uses UTC.
-console.log( new Date( '21 March 2025' ) )
-console.log( new Date( 'Mar 21 2025 07:15:00' ) )
-
-console.log( new Date( 2025, 2, 21, 7, 15, 0 ) ) //! Months start from zero - 0
-
-console.log( new Date( 2025, 2, 21 + 100 ) )
-
-//!_______________________________________-
-console.log('________________________________');
-
-const date_1_23_25 = new Date( 2025, 0, 23 )
-console.log( date_1_23_25, Number( date_1_23_25 ) )
-
-const date_9_23_25 = new Date( 2025, 8, 23 )
-console.log( date_9_23_25, Number( date_9_23_25 ) )
-
-const delta = Number( date_9_23_25 ) - Number( date_1_23_25 )
-console.log( delta )
-console.log( date_9_23_25 - date_1_23_25 )
-
-console.log( delta / ( 1000 * 60 * 60 * 24 ) )
-
-//! function
-console.log( 'FUNCTION _________________' )
-const user = {
-    name: 'Peter',
-    birthDate: '01-23-1987'
-}
-function isBirthday ( user )
+performance.mark('start')
+window.setTimeout( ( message, message_1 ) =>
 {
-    const birthDate = new Date( user.birthDate )
-    const dateNow = new Date()
+    // console.log( performance.now() )
+    console.log( message )
+    console.log( message_1 )
+}, 1000, 'Hello', 'Bonjour' )
+performance.mark('end')
+performance.measure( 'Time work of our setTimeout', 'start', 'end' )
 
-     return  dateNow.getMonth() !== birthDate.getMonth()
-                ? false
-                    : dateNow.getDate() !== birthDate.getDate()
-                        ? false
-                            : true
+const duration = performance.getEntriesByName( 'Time work of our setTimeout' )[0].duration
+console.log( duration, 'DURATION' )
 
+
+//! TASK
+console.log( 'TASK________________' )
+const h2 = document.querySelector( '.cook-time' )
+console.log( h2 )
+
+function pizzaIsReady ( timeOrder )
+{
+    const cookTime = 20 * 60 * 1000
+    const readyTime = timeOrder.getTime() + cookTime + 100
+
+    const interval = setInterval( () =>
+    {
+        let limitTime = readyTime - new Date()
+        const intlTime = Intl.DateTimeFormat( navigator.language, {
+            minute: 'numeric',
+            second: 'numeric'
+        }).format( limitTime )
+        h2.textContent = intlTime.toString()
+
+        if( limitTime < 0 ) {
+            clearInterval( interval )
+            h2.textContent = 'Bone Appetite!'
+        }
+    }, 1000)
 }
-console.log( isBirthday( user ) )
 
-
-//! Intl
-
-console.log('Intl ______________________')
-
-const dateIntl = new Date()
-console.log( Intl.DateTimeFormat( 'be-BY' ).format( dateIntl ) )
-
-console.log( Intl.DateTimeFormat( 'be-BY', {
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    month: 'long',
-    weekday: 'long',
-    year: '2-digit'
-} ).format( dateIntl ), 'be-BY' )
-
-console.log( Intl.DateTimeFormat( navigator.language, {
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    month: 'long',
-    weekday: 'long',
-    year: '2-digit'
-} ).format( dateIntl ), navigator.language ) //! NOT BY -- RU!!!!!!!!!!!! If you use Russian language in browser!
-
-console.log( Intl.DateTimeFormat( 'en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    month: 'long',
-    weekday: 'long',
-    year: '2-digit'
-} ).format( dateIntl ), 'en-US' )
-
-console.log( Intl.DateTimeFormat( 'en-GB', {
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    month: 'long',
-    weekday: 'long',
-    year: '2-digit'
-} ).format( dateIntl ), 'en-GB' )
+pizzaIsReady(new Date())
